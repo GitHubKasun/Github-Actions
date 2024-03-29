@@ -7,12 +7,16 @@ on:
             - main
     
 jobs:
-    test-github-outputs:
+    random-number-generator:
+        runs-on: ubuntu-latest
+        outputs:
+            random-number: ${{ steps.generate-random-number.outputs.number}}
+        steps:
+            - id: generate-random-number
+              run: echo "number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
+    
+    consumer-of-generator:
+        needs: random-number-generator
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - id: generate-number
-              run: echo "number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
-            - id: use-number
-              run: echo "The number is ${{ steps.generate-number.outputs.number }}"
+            - run: echo "Random number is ${{ needs.random-number-generator.outputs.random-number }}"
