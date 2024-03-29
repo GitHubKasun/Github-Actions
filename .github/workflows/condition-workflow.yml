@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       number: ${{ steps.generate-random-number.outputs.number}}
-      is-even: ${{ steps.generate-random-number.outputs.is-even}} }}
+      is-even: ${{ steps.generate-random-number.outputs.is-even}}
     steps:
       - id: generate-random-number
         name: Generate Random Number
