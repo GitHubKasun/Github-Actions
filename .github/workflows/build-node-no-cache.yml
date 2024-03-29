@@ -1,4 +1,4 @@
-name: Build Node JS App without cache
+name: Build Node JS App with cache
 
 on:
   push:
