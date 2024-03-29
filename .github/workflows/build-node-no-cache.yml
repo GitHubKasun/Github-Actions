@@ -58,6 +58,6 @@ jobs:
       - run: ls dist
     
       - name: Delete Artifacts
-        uses: geekyeggo/delete-artifacts@v5
+        uses: geekyeggo/delete-artifact@v5
         with:
           name: my-app
