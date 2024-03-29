@@ -1,7 +1,6 @@
 name: Build Node JS App with cache
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
