@@ -1,34 +1,39 @@
 name: Conditional Workflow
 
 on:
-    workflow_dispatch: 
-    push:
-        branches:
-            - main
-    
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
 jobs:
-    random-number-generator:
-        runs-on: ubuntu-latest
-        outputs:
-            number: ${{ steps.generate-random-number.outputs.number}}
-            is-even: ${{ steps.is-even.outputs.is-even }}
-        steps:
-            - id: generate-random-number
-              run: echo "number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
-            - id: is-even
-              run: |
-                echo "is-even=$((${{ steps.generate-random-number.outputs.number }} % 2 == 0))" >> "$GITHUB_OUTPUT"
-                echo "The number is ${{ steps.generate-random-number.outputs.number }}" >> "$GITHUB_STEP_SUMMARY"
-    
-    consumer-of-generator-odd:
-        needs: random-number-generator
-        runs-on: ubuntu-latest
-        if: ${{ ! needs.random-number-generator.outputs.is-even }}
-        steps:
-            - run: echo "Random number is ${{ needs.random-number-generator.outputs.number }} is odd"
-    consumer-of-generator-even:
-        needs: random-number-generator
-        runs-on: ubuntu-latest
-        if: ${{ needs.random-number-generator.outputs.is-even }}
-        steps:
-            - run: echo "Random number is ${{ needs.random-number-generator.outputs.number }} is even"
+  random-number-generator:
+    runs-on: ubuntu-latest
+    outputs:
+      number: ${{ steps.generate-random-number.outputs.number}}
+      is-even: ${{ steps.generate-random-number.outputs.is-even}} }}
+    steps:
+      - id: generate-random-number
+        name: Generate Random Number
+        run: echo "number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
+      - id: is-even
+        name: Check if number is even
+        run: |
+          echo "is-even=$((${{ steps.generate-random-number.outputs.number }} % 2 == 0))" >> "$GITHUB_OUTPUT"
+          echo "The number is ${{ steps.generate-random-number.outputs.number }}" >> "$GITHUB_STEP_SUMMARY"
+
+  consumer-of-generator-odd:
+    needs: random-number-generator
+    runs-on: ubuntu-latest
+    if: ${{ ! needs.random-number-generator.outputs.is-even }}
+    steps:
+      - run: echo "Random number is ${{ needs.random-number-generator.outputs.number }} is odd"
+        name: Print Odd Number
+
+  consumer-of-generator-even:
+    needs: random-number-generator
+    runs-on: ubuntu-latest
+    if: ${{ needs.random-number-generator.outputs.is-even }}
+    steps:
+      - run: echo "Random number is ${{ needs.random-number-generator.outputs.number }} is even"
+        name: Print Even Number
