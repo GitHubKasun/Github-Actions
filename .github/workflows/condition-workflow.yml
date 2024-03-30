@@ -2,9 +2,9 @@ name: Conditional Workflow
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+#   push:
+#     branches:
+#       - main
 
 jobs:
   random-number-generator:

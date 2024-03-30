@@ -1,0 +1,20 @@
+name: GitHub Action Metrixs CI
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                node: [12.x, 14.x, 16.x]
+                os: [ubuntu-latest, windows-latest, macos-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Restore Cache
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
