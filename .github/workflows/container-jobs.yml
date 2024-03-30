@@ -1,0 +1,14 @@
+name: Container Jobs for workflows
+
+on:
+    workflow_dispatch: 
+
+jobs:
+    node_job:
+        runs-on: ubuntu-latest
+        container: node:14
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Run Command
+              run: node --version
