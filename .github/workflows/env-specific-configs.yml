@@ -1,12 +1,13 @@
 name: Enviormental Specific configs
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - ci/*
+  workflow_dispatch:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - ci/*
 
 jobs:
   live-job:
