@@ -1,32 +1,32 @@
 name: Container Services for Workflow Automation
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-    my_job:
-        runs-on: ubuntu-latest
-        services:
-            my_database:
-                image: postgres:15
-                env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: postgres
-                    POSTGRES_DB: testdb
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-                ports:
-                    - 5432:5432
-        steps:
-        - name: Check out repository code
-          uses: actions/checkout@v3
-        - name: Install PostgreSQL client
-          run: sudo apt-get -yqq install postgresql-client
-        - name: Check PostgreSQL Service
-          env:
-            PGPASSWORD: postgres
-          run: |
-            psql -h localhost -U postgres -d testdb -c 'SELECT version();'
+  my_job:
+    runs-on: ubuntu-latest
+    services:
+      my_database:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install PostgreSQL client
+        run: sudo apt-get -yqq install postgresql-client
+      - name: Check PostgreSQL Service
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h localhost -U postgres -d testdb -c 'SELECT version();'
