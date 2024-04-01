@@ -6,4 +6,4 @@ on:
 jobs:
   ci:
     name: Run build Process
-    uses: GitHubKasun/GHA.workflow/.github/workflows/gha.workflows.build-node.yml
+    uses: GitHubKasun/GHA.workflow/.github/workflows/gha.workflows.build-node.yml@main
