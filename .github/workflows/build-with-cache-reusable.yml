@@ -1,0 +1,9 @@
+name: Node.Js CI - Reusable
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: Run build Process
+    uses: GitHubKasun/GHA.workflow/.github/workflows/gha.workflows.build-node.yml
